@@ -14,6 +14,12 @@
 # V1.1 (bug fix, now script can understand .nc or .cdf)
 #
 #----------------------------------------------------------------------- 
+# ENV.
+   set netcdfinc=/opt/local/include
+   set netcdflib=/opt/local/lib
+   set codedir=/Users/tomita/KSD/UNIX/MKCDF/V2
+   set version=v1.4
+
 # INIT. 
    set name=VAR
    set nopt=$#argv
@@ -108,7 +114,7 @@ FILE:
 
 # CHECK
 CHK:
-  echo "mkbin1.4:"
+  echo "mkbin "$version" :"
   echo "  Variable name   :"$name
   echo "  Input File name :"$file
   echo "  File name(.bin) :"$ofile
@@ -121,7 +127,7 @@ CHK:
   echo " Converting..."
 
 # MAIN CODE
-  set code=/home/tomita/MKBIN/V1/mk_ofuro_bin_v1.4.f90
+  set code=$codedir/mk_ofuro_bin_v1.4.f90
   sed s/VVAARR/$name/g $code >tmp1_$$.f90
   sed s:IINNPPUUTT:"$file":g tmp1_$$.f90 > tmp2_$$.f90
   sed s:OOUUTTPPUUTT:"$ofile":g tmp2_$$.f90 > tmp1_$$.f90
@@ -134,7 +140,7 @@ CHK:
   sed s/IX/$xsize/g tmp1_$$.f90 > tmp2_$$.f90
   sed s/JY/$ysize/g tmp2_$$.f90 > tmp1_$$.f90
   
-  gfortran -I/home/tomita/netCDF/netcdf-fortran-4.2/include -L/home/tomita/netCDF/netcdf-fortran-4.2/lib -lnetcdff -o out_nc_$$ tmp1_$$.f90
+  gfortran -I$netcdfinc -L$netcdflib -lnetcdff -o out_nc_$$ tmp1_$$.f90
   ./out_nc_$$
 
 CLEAN:
