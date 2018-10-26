@@ -15,9 +15,10 @@
 #
 #----------------------------------------------------------------------- 
 # ENV.
+   set fortran=gfortran
    set netcdfinc=/opt/local/include
    set netcdflib=/opt/local/lib
-   set codedir=/Users/tomita/KSD/UNIX/MKCDF/V2
+   set codedir=/Users/tomita/KSD/UNIX/MKBIN/mkbin
    set version=v1.4
 
 # INIT. 
@@ -85,7 +86,7 @@ FILE:
   echo "      stop" >> $gyf
   echo "      end" >>  $gyf
 
-  gfortran -o get_year $gyf
+  $fortran -o get_year $gyf
   set year=`./get_year` 
 
 
@@ -140,7 +141,7 @@ CHK:
   sed s/IX/$xsize/g tmp1_$$.f90 > tmp2_$$.f90
   sed s/JY/$ysize/g tmp2_$$.f90 > tmp1_$$.f90
   
-  gfortran -I$netcdfinc -L$netcdflib -lnetcdff -o out_nc_$$ tmp1_$$.f90
+  $fortran -I$netcdfinc -L$netcdflib -lnetcdff -o out_nc_$$ tmp1_$$.f90
   ./out_nc_$$
 
 CLEAN:
