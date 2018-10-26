@@ -2,7 +2,7 @@
 makes fortran binary from netCDF
 
 ## Usage
-mkbin -name var  input_file.nc
+`mkbin -name var  input_file.nc`
 
 ## Option
 -mon: monthly  
