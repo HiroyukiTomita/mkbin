@@ -6,7 +6,7 @@ makes fortran binary from netCDF
 
 ## Option
 `-mon`: monthly  
-`-ndat`: specify custum number of input data
+`-ndat`: specify custum number of input data  
 `-res`: spatial resolution (hr or lr)  
     
 * hr (1440x720): default  
