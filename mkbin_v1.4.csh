@@ -2,12 +2,14 @@
 #
 # mkbin -options netcdf_file_YYYY.nc
 #
-# -mon  monthly
+# -mon  monthly (assume 12 data input for time)
+# -ndat specify custum number of data for time
 # -name Target_var_name (e.g. LHF)
 # -res  Resolution (hr or lr)
 #        hr (1440x720)  : default
 #        lr (360x180)   : option
 #
+# V1.5 (add option : -ndat)
 # V1.4 (bug fix for monthly option)
 # V1.3 (bug fix for add offset and scale factor)
 # V1.2 (add option : -res  )
@@ -19,12 +21,13 @@
    set netcdfinc=/opt/local/include
    set netcdflib=/opt/local/lib
    set codedir=/Users/tomita/KSD/UNIX/MKBIN/mkbin
-   set version=v1.4
+   set version=v1.5
 
 # INIT. 
    set name=VAR
    set nopt=$#argv
    set sw_mon=0
+   set ndat=9999
    set resolution=hr
    @ nopt=$nopt - 1
 
@@ -32,7 +35,8 @@
  if ($#argv == 0) then
   echo "USAGE: mkbin1 (v1.4)"
   echo "   mkbin1 -options netcdf_file_YYYY.nc"
-  echo "    -mon  monthly                   "
+  echo "    -mon  monthly  "
+  echo "    -ndat specify number od input data for time"
   echo "    -name Target_var_name (e.g. LHF)"
   echo "    -res  Resolution (hr or lr)     "
   echo "           hr (1440x720)  : default "
@@ -53,6 +57,10 @@
     if ("$argv[$n]" == "-res") then
      @ np=$n + 1
      set resolution=$argv[$np]
+    endif
+    if ("$argv[$n]" == "-ndat") then
+     @ np=$n + 1
+     set ndat=$argv[$np]
     endif
     @ n=$n + 1
   end
@@ -134,7 +142,11 @@ CHK:
   sed s:OOUUTTPPUUTT:"$ofile":g tmp2_$$.f90 > tmp1_$$.f90
   sed s/YYYY/$year/g tmp1_$$.f90 > tmp2_$$.f90
   if ($sw_mon == 0) then
-   sed s/JJDD/$jdays/g tmp2_$$.f90 > tmp1_$$.f90
+   if ($ndat != 9999) then
+    sed s/JJDD/${ndat}/g tmp2_$$.f90 > tmp1_$$.f90
+   else
+    sed s/JJDD/$jdays/g tmp2_$$.f90 > tmp1_$$.f90
+   endif
   else
    sed s/JJDD/12/g tmp2_$$.f90 > tmp1_$$.f90
   endif
@@ -147,7 +159,7 @@ CHK:
 CLEAN:
   if -r out_nc_$$ rm out_nc_$$
   if -r tmp_$$.f  rm tmp_$$.f
-  if -r tmp1_$$.f90  rm tmp1_$$.f90 
+#  if -r tmp1_$$.f90  rm tmp1_$$.f90 
   if -r tmp2_$$.f90  rm tmp2_$$.f90 
   if -r get_year rm get_year
 
