@@ -159,7 +159,7 @@ CHK:
 CLEAN:
   if -r out_nc_$$ rm out_nc_$$
   if -r tmp_$$.f  rm tmp_$$.f
-#  if -r tmp1_$$.f90  rm tmp1_$$.f90 
+  if -r tmp1_$$.f90  rm tmp1_$$.f90 
   if -r tmp2_$$.f90  rm tmp2_$$.f90 
   if -r get_year rm get_year
 
