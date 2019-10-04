@@ -9,5 +9,6 @@ makes fortran binary from netCDF
 `-ndat`: specify custum number of input data  
 `-res`: spatial resolution (hr or lr)  
     
-* hr (1440x720): default  
-* lr (360x180): option  
+* hr   (1440x720): default  
+* lr   (360x180) : option  
+* nra2 (192x94)  : option  

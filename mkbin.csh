@@ -6,9 +6,11 @@
 # -ndat specify custum number of data for time
 # -name Target_var_name (e.g. LHF)
 # -res  Resolution (hr or lr)
-#        hr (1440x720)  : default
-#        lr (360x180)   : option
+#        hr   (1440x720)  : default
+#        lr   (360x180)   : option
+#        nra2 (192x94)    : option
 #
+# V1.6 (add new resolution: nra2)
 # V1.5 (add option : -ndat)
 # V1.4 (bug fix for monthly option)
 # V1.3 (bug fix for add offset and scale factor)
@@ -21,7 +23,7 @@
    set netcdfinc=/opt/local/include
    set netcdflib=/opt/local/lib
    set codedir=/Users/tomita/KSD/UNIX/MKBIN/mkbin
-   set version=v1.5
+   set version=v1.6
 
 # INIT. 
    set name=VAR
@@ -33,7 +35,7 @@
 
 # USAGE
  if ($#argv == 0) then
-  echo "USAGE: mkbin1 (v1.4)"
+  echo "USAGE: mkbin1 (v1.6)"
   echo "   mkbin1 -options netcdf_file_YYYY.nc"
   echo "    -mon  monthly  "
   echo "    -ndat specify number od input data for time"
@@ -112,6 +114,9 @@ FILE:
   else if ($resolution == "lr" || $resolution == "LR") then
     set xsize=360
     set ysize=180
+  else if ($resolution == "nra2" || $resolution == "NRA2") then
+    set xsize=192
+    set ysize=94
   endif
 
 # DAILY or MONTHLY
