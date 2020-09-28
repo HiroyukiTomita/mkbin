@@ -9,7 +9,9 @@
 #        hr   (1440x720)  : default
 #        lr   (360x180)   : option
 #        nra2 (192x94)    : option
+#        era5 (1440x721)  : option
 #
+# V1.6.1 (add new resolution: era5)
 # V1.6 (add new resolution: nra2)
 # V1.5 (add option : -ndat)
 # V1.4 (bug fix for monthly option)
@@ -23,7 +25,7 @@
    set netcdfinc=/opt/local/include
    set netcdflib=/opt/local/lib
    set codedir=/Users/tomita/KSD/UNIX/MKBIN/mkbin
-   set version=v1.6
+   set version=v1.6.1
 
 # INIT. 
    set name=VAR
@@ -117,6 +119,9 @@ FILE:
   else if ($resolution == "nra2" || $resolution == "NRA2") then
     set xsize=192
     set ysize=94
+  else if ($resolution == "era5" || $resolution == "ERA5") then
+    set xsize=1440
+    set ysize=721
   endif
 
 # DAILY or MONTHLY

@@ -12,3 +12,4 @@ makes fortran binary from netCDF
 * hr   (1440x720): default  
 * lr   (360x180) : option  
 * nra2 (192x94)  : option  
+* ERA5 (1440x721): option  
